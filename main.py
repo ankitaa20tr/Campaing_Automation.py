@@ -38,11 +38,4 @@ def fetch_post():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
-# OPTIONAL: simple GET endpoint so you can test the tunnel easily
-@app.route("/fetch", methods=["GET"])
-def fetch_get():
-    return jsonify({"message": "Use POST with JSON { 'url': 'https://...' }"})
-
-
 app.run(host="0.0.0.0", port=8080)
