@@ -12,8 +12,11 @@ def home():
 def status():
     return "Server running. Relax."
 
-@app.route("/fetch", methods=["POST"])
-def fetch_post():
+@app.route("/fetch", methods=["GET", "POST"])
+def fetch():
+    if request.method == "GET":
+        return jsonify({"message": "Use POST with JSON { 'url': 'https://...' }"})
+
     data = request.get_json()
 
     if not data or "url" not in data:
@@ -26,7 +29,7 @@ def fetch_post():
         soup = BeautifulSoup(r.text, "html.parser")
 
         title = soup.find("title").get_text() if soup.find("title") else "No title"
-        price = "₹999"  # demo placeholder
+        price = "₹999"
         desc = "Sample description extracted from page."
 
         return jsonify({
